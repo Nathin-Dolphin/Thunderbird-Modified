@@ -85,10 +85,9 @@ class ContactTile extends JPanel {
             String preferredName;
             String location;
 
-            if (isSeat) {
+            if (isSeat)
                 location = "  Seat: " + contactInSeat.getSeat();
-
-            } else {
+            else {
                 g.setColor(Color.RED);
                 location = "  Aisle: " + contactInSeat.getSeat();
             }
@@ -107,7 +106,11 @@ class ContactTile extends JPanel {
 }
 
 class ThunderbirdFrame extends JFrame implements ActionListener {
-    private ArrayList<ContactTile> tileList;
+    private ArrayList<ContactTile> tileList, reversedList;
+    private ThunderbirdModel tbM;
+    private JPanel contactGridPanel;
+
+    private boolean reverse = true;
 
     public ThunderbirdFrame() {
         setTitle("Thunderbird");
@@ -124,12 +127,12 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
         buttonPanel.add(reverseView);
         reverseView.addActionListener(this);
 
-        JPanel contactGridPanel = new JPanel();
+        contactGridPanel = new JPanel();
         contentPane.add(contactGridPanel, BorderLayout.CENTER);
 
         contactGridPanel.setLayout(new GridLayout(11, 9));
 
-        ThunderbirdModel tbM = new ThunderbirdModel();
+        tbM = new ThunderbirdModel();
         tbM.LoadIndex();
         tbM.LoadContactsThreaded();
 
@@ -168,19 +171,45 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
             tileList.add(tile);
             contactGridPanel.add(tile);
         }
+
+        // Creates another contact list but in reverse order
+        reversedList = new ArrayList<ContactTile>();
+        for (int b = 98; b > -1; b--) {
+            reversedList.add(tileList.get(b));
+        }
+    }
+
+    // Attempts to redraw the tiles in a new order
+    private void drawTiles() {
+        contactGridPanel = new JPanel(new GridLayout(11, 9));
+
+        if (reverse) {
+            for (ContactTile tile : reversedList) {
+                contactGridPanel.add(tile);
+            }
+            reverse = false;
+
+        } else {
+            for (ContactTile tile : tileList) {
+                contactGridPanel.add(tile);
+            }
+            reverse = true;
+        }
+
+        Container contentPane = getContentPane();
+        // contentPane.remove(contactGridPanel);
+        contentPane.add(contactGridPanel, BorderLayout.CENTER);
     }
 
     public void actionPerformed(ActionEvent e) {
-        for (ContactTile tile : tileList) {
-            // Todo: Remove randomization functionality and implement a visually appealing
-            // view of seats and aisles.
-            // NW - Fully implemented.
+        // Todo: Remove randomization functionality and implement a visually appealing
+        // view of seats and aisles.
+        // NW - Fully implemented.
 
-            // Todo: Implement reverse view where it looks like you are looking at the room
-            // from the back instead of the front of the room.
-            // [!] NOT IMPLEMENTED [!]
-        }
-
+        // Todo: Implement reverse view where it looks like you are looking at the room
+        // from the back instead of the front of the room.
+        // WORK IN PROGRESS
+        drawTiles();
         repaint();
     }
 }
