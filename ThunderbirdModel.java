@@ -29,7 +29,7 @@ class ThunderbirdModel extends HttpRequest {
         urlContentsList = new ArrayList<String[]>();
     }
 
-    public Boolean LoadIndex() {
+    public Boolean loadIndex() {
         Boolean returnValue = false;
         if (readURL(indexURL)) {
             // Look through the index JSON file for each URL and then create a new Contact
@@ -55,19 +55,19 @@ class ThunderbirdModel extends HttpRequest {
         return returnValue;
     }
 
-    public void LoadContacts() {
+    public void loadContacts() {
         long start = System.currentTimeMillis();
         int contactsLoaded = 0;
         for (ThunderbirdContact hrC : contactList) {
-            hrC.Load();
+            hrC.load();
             contactsLoaded++;
         }
 
         System.out.println("Contacts Loaded: " + contactsLoaded);
-        System.out.println("LoadContacts Elapsed Time: " + (System.currentTimeMillis() - start) + " ms\n");
+        System.out.println("loadContacts Elapsed Time: " + (System.currentTimeMillis() - start) + " ms\n");
     }
 
-    public void LoadContactsThreaded() {
+    public void loadContactsThreaded() {
         long start = System.currentTimeMillis();
         int contactsLoaded = 0;
 
@@ -90,16 +90,16 @@ class ThunderbirdModel extends HttpRequest {
         }
 
         System.out.println("Contacts Loaded: " + contactsLoaded);
-        System.out.println("LoadContacts Elapsed Time = " + (System.currentTimeMillis() - start) + " ms\n");
+        System.out.println("loadContacts Elapsed Time = " + (System.currentTimeMillis() - start) + " ms\n");
     }
 
-    public void ValidateContacts() {
+    public void validateContacts() {
         long start = System.currentTimeMillis();
         System.out.println("Validating Contacts:");
         for (ThunderbirdContact hrC : contactList) {
-            hrC.Validate(urlContentsList);
+            hrC.validate(urlContentsList);
         }
-        System.out.println("ValidateContacts Elapsed Time = " + (System.currentTimeMillis() - start) + " ms\n");
+        System.out.println("validateContacts Elapsed Time = " + (System.currentTimeMillis() - start) + " ms\n");
     }
 
     public String toString() {

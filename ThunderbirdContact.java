@@ -56,22 +56,22 @@ class ThunderbirdContact extends HttpRequest implements Runnable {
         // NW - Implemented 'preferredName' field.
     }
 
-    public Boolean Load() {
+    public Boolean load() {
         Boolean returnValue = false;
-        System.out.println("Loading: " + requestURL);
+        System.out.println("loading: " + requestURL);
         if (super.readURL()) {
-            Parse();
+            parse();
             returnValue = true;
         }
 
         return returnValue;
     }
 
-    public void Parse() {
+    public void parse() {
         for (String s : urlContent) {
             String[] subString = s.split("\"");
 
-            // Todo: Parse for additional fields.
+            // Todo: parse for additional fields.
             // NW - Implemented 'preferredName' field.
             if (subString.length > 3) {
                 if (subString[1].equals("firstName")) {
@@ -97,7 +97,7 @@ class ThunderbirdContact extends HttpRequest implements Runnable {
         }
     }
 
-    public void Validate(ArrayList<String[]> urlContentsList) {
+    public void validate(ArrayList<String[]> urlContentsList) {
         System.out.print("Validating: " + requestURL);
 
         if (urlContent.size() < 1) {
@@ -139,6 +139,6 @@ class ThunderbirdContact extends HttpRequest implements Runnable {
     }
 
     public void run() {
-        Load();
+        load();
     }
 }
