@@ -53,7 +53,7 @@ class ThunderbirdContact extends HttpRequest implements Runnable {
         seatLocation = 0;
 
         // Todo: Add additional fields.
-        // NW - Fully implemented.
+        // NW - Implemented 'preferredName' field.
     }
 
     public Boolean Load() {
@@ -72,7 +72,7 @@ class ThunderbirdContact extends HttpRequest implements Runnable {
             String[] subString = s.split("\"");
 
             // Todo: Parse for additional fields.
-            // NW - Fully implemented.
+            // NW - Implemented 'preferredName' field.
             if (subString.length > 3) {
                 if (subString[1].equals("firstName")) {
                     firstName = subString[3];
@@ -127,7 +127,7 @@ class ThunderbirdContact extends HttpRequest implements Runnable {
 
     public String toString() {
         // Todo: Add additional fields to returnString.
-        // NW - Fully implemented.
+        // NW - Implemented 'preferredName' field.
         String returnString = "firstName: " + firstName + "\n";
         returnString = returnString + "lastName: " + lastName + "\n";
         if (!preferredName.equals(""))

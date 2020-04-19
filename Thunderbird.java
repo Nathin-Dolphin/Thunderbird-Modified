@@ -16,7 +16,7 @@
 
 // Modified from Original
 // Modifier: Nathin Wacher
-// Modified Version: 1.1
+// Modified Version: 1.1.1
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -139,7 +139,7 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
         // Todo: Review ThunderbirdModel in detail and implement a multithreaded version
         // of loading contacts.
         // Hint: Review LoadContact() and LoadContactsThreaded() in detail.
-        // NW - Fully implemented.
+        // NW - Fully implemented and reviewed.
 
         System.out.println("Printing Model:");
         System.out.println(tbM);
@@ -209,7 +209,7 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
 
         // Todo: Implement reverse view where it looks like you are looking at the room
         // from the back instead of the front of the room.
-        // WORK IN PROGRESS
+        // NW - Fully implemented.
         drawTiles();
         repaint();
     }
