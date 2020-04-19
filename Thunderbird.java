@@ -16,7 +16,7 @@
 
 // Modified from Original
 // Modifier: Nathin Wacher
-// Modified Version: 1.0
+// Modified Version: 1.1
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -114,7 +114,7 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
 
     public ThunderbirdFrame() {
         setTitle("Thunderbird");
-        setBounds(350, 50, 1200, 800);
+        setBounds(300, 25, 1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container contentPane = getContentPane();
@@ -139,7 +139,7 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
         // Todo: Review ThunderbirdModel in detail and implement a multithreaded version
         // of loading contacts.
         // Hint: Review LoadContact() and LoadContactsThreaded() in detail.
-        // [!] WORK IN PROGRESS [!]
+        // NW - Fully implemented.
 
         System.out.println("Printing Model:");
         System.out.println(tbM);
@@ -172,15 +172,17 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
             contactGridPanel.add(tile);
         }
 
-        // Creates another contact list but in reverse order
+        // Create another contact list but in reverse order
         reversedList = new ArrayList<ContactTile>();
         for (int b = 98; b > -1; b--) {
             reversedList.add(tileList.get(b));
         }
     }
 
-    // Attempts to redraw the tiles in a new order
+    // Redraws the tiles in a new order
     private void drawTiles() {
+        Container contentPane = getContentPane();
+        contentPane.remove(contactGridPanel);
         contactGridPanel = new JPanel(new GridLayout(11, 9));
 
         if (reverse) {
@@ -196,9 +198,8 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
             reverse = true;
         }
 
-        Container contentPane = getContentPane();
-        // contentPane.remove(contactGridPanel);
         contentPane.add(contactGridPanel, BorderLayout.CENTER);
+        setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
