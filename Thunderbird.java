@@ -16,7 +16,7 @@
 
 // Modified from Original
 // Modifier: Nathin Wacher
-// Modified Version: 1.1.2
+// Modified Version: 1.2
 
 // Todo: Rename the following class to Thunderbird.
 // NW - Fully implemented.
@@ -26,7 +26,7 @@ public class Thunderbird {
         // Todo: Update the following line so that it reflects the name change to
         // Thunderbird.
         // NW - Fully implemented.
-        System.out.println("Thunderbird Starting...");
+        System.out.println("Thunderbird Starting...\n");
         new ThunderbirdFrame();
     }
 }

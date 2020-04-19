@@ -63,8 +63,8 @@ class ThunderbirdModel extends HttpRequest {
             contactsLoaded++;
         }
 
-        System.out.println("Contacts Loaded: " + contactsLoaded);
-        System.out.println("loadContacts Elapsed Time: " + (System.currentTimeMillis() - start) + " ms\n");
+        System.out.println("## Contacts Loaded: " + contactsLoaded);
+        System.out.println("## loadContacts Elapsed Time: " + (System.currentTimeMillis() - start) + " ms\n");
     }
 
     public void loadContactsThreaded() {
@@ -89,24 +89,24 @@ class ThunderbirdModel extends HttpRequest {
             System.out.println("Exception: " + e);
         }
 
-        System.out.println("Contacts Loaded: " + contactsLoaded);
-        System.out.println("loadContacts Elapsed Time = " + (System.currentTimeMillis() - start) + " ms\n");
+        System.out.println("## Contacts Loaded: " + contactsLoaded);
+        System.out.println("## loadContacts Elapsed Time = " + (System.currentTimeMillis() - start) + " ms\n");
     }
 
     public void validateContacts() {
         long start = System.currentTimeMillis();
-        System.out.println("Validating Contacts:");
+        System.out.println("## Validating Contacts:");
         for (ThunderbirdContact hrC : contactList) {
             hrC.validate(urlContentsList);
         }
-        System.out.println("validateContacts Elapsed Time = " + (System.currentTimeMillis() - start) + " ms\n");
+        System.out.println("## validateContacts Elapsed Time = " + (System.currentTimeMillis() - start) + " ms\n");
     }
 
     public String toString() {
         // The super class contains the Index of contacts.
-        String returnString = "Index:\n" + super.toString();
+        String returnString = "## Index " + super.toString();
 
-        returnString = returnString + "\nPrinting Contacts:\n";
+        returnString = returnString + "\n## Printing Contacts:\n";
         for (ThunderbirdContact contact : contactList) {
             returnString = returnString + contact + "\n";
         }

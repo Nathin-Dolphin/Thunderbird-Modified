@@ -14,19 +14,17 @@
 import java.util.ArrayList;
 
 class ThunderbirdContact extends HttpRequest implements Runnable {
-    private String firstName;
+    private String preferredName, firstName, lastName;
+    private int seatLocation;
+    private boolean isSeat = true;
 
     public String getFirstName() {
         return firstName;
     }
 
-    private String lastName;
-
     public String getLastName() {
         return lastName;
     }
-
-    private String preferredName;
 
     public String getPreferredName() {
         return preferredName;
@@ -38,10 +36,8 @@ class ThunderbirdContact extends HttpRequest implements Runnable {
         return true;
     }
 
-    private int seatLocation;
-
     public int getSeat() {
-        return (seatLocation - 1);
+        return (seatLocation);
     }
 
     ThunderbirdContact(String urlIn) {
@@ -115,6 +111,7 @@ class ThunderbirdContact extends HttpRequest implements Runnable {
             System.out.println("... Passed!");
             return; // Returning from the middle of a method is controversial.
         }
+        
         // Todo: Add author's name and email address to failed messages.
         // NW - Fully implemented.
         for (String[] s : urlContentsList) {
@@ -128,14 +125,36 @@ class ThunderbirdContact extends HttpRequest implements Runnable {
     public String toString() {
         // Todo: Add additional fields to returnString.
         // NW - Implemented 'preferredName' field.
-        String returnString = "firstName: " + firstName + "\n";
-        returnString = returnString + "lastName: " + lastName + "\n";
-        if (!preferredName.equals(""))
-            returnString = returnString + "preferredName: " + preferredName + "\n";
-        returnString = returnString + "seatNumber: " + seatLocation + "\n";
-        returnString = returnString + super.toString();
+        String returnString = "";
+
+        if (!preferredName.equals("")) {
+            if (preferredName.equals(firstName))
+                returnString = returnString + "Preferred/First Name: " + preferredName + "\n";
+
+            else {
+                returnString = returnString + "Preferred Name: " + preferredName + "\n";
+                returnString = returnString + "First Name: " + firstName + "\n";
+            }
+        } else if (!firstName.equals(""))
+            returnString = returnString + "First Name: " + firstName + "\n";
+
+        if (!lastName.equals(""))
+            returnString = returnString + "Last Name: " + lastName + "\n";
+
+        if (seatLocation != 0)
+            if (isSeat)
+                returnString = returnString + "Seat Number: " + seatLocation + "\n\n";
+            else
+                returnString = returnString + "Aisle Number: " + seatLocation + "\n\n";
+
+        returnString = returnString + super.toString() + "\n";
 
         return returnString;
+    }
+
+    public String toString(boolean isSeat) {
+        this.isSeat = isSeat;
+        return toString();
     }
 
     public void run() {

@@ -11,16 +11,28 @@
 
 // Modified from Original
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Font;
 
 class ContactTile extends JPanel {
-    private Color tileColor = Color.LIGHT_GRAY;
     private ThunderbirdContact contactInSeat = null;
+    private Color tileColor = Color.LIGHT_GRAY;
     private boolean isSeat = false;
+
+    private MouseAdapter mouseAdapter = new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+            showMessage();
+        }
+    };
+
+    private int seatLocation;
 
     public void setTileColor() {
         tileColor = Color.BLACK;
@@ -29,6 +41,7 @@ class ContactTile extends JPanel {
 
     ContactTile() {
         super();
+        addMouseListener(mouseAdapter);
 
         // Todo: Remove everything to do with random colors.
         // NW - Fully implemented.
@@ -36,9 +49,30 @@ class ContactTile extends JPanel {
         // NW - Fully implemented.
     }
 
-    ContactTile(ThunderbirdContact contactInSeatIn) {
+    ContactTile(ThunderbirdContact contactInSeatIn, int seatLocation) {
         super();
+        addMouseListener(mouseAdapter);
+        this.seatLocation = seatLocation;
         contactInSeat = contactInSeatIn;
+    }
+
+    private void showMessage() {
+        String messageContents;
+
+        if (isSeat) {
+            if (contactInSeat == null)
+                messageContents = "Seat Number " + seatLocation;
+            else
+                messageContents = contactInSeat.toString();
+
+        } else {
+            if (contactInSeat == null)
+                messageContents = "Aisle Number " + seatLocation;
+            else
+                messageContents = contactInSeat.toString(false);
+        }
+
+        JOptionPane.showMessageDialog(this, messageContents, "Personal Information", JOptionPane.PLAIN_MESSAGE);
     }
 
     public void paintComponent(Graphics g) {
@@ -58,7 +92,7 @@ class ContactTile extends JPanel {
         final int fontSize = 18;
         g.setColor(Color.GREEN);
         g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
-        int stringX = (panelWidth / 5);
+        int stringX = (panelWidth / 10);
         int stringY = (panelHeight / 3) + 5;
         if (contactInSeat != null) {
 
@@ -68,10 +102,10 @@ class ContactTile extends JPanel {
             String location;
 
             if (isSeat)
-                location = "  Seat: " + contactInSeat.getSeat();
+                location = "   Seat: " + contactInSeat.getSeat();
             else {
                 g.setColor(Color.RED);
-                location = "  Aisle: " + contactInSeat.getSeat();
+                location = "   Aisle: " + contactInSeat.getSeat();
             }
 
             if (contactInSeat.hasPreferredName())

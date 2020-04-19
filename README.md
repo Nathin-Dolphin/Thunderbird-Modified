@@ -5,7 +5,7 @@
 Copyright (C) 2019 Eric Pogue.
   
 This file and the Thunderbird application is licensed under the 
-BSD-3-Clause.
+BSD-3-Clause and MIT License.
 
 Modified from Original
 Modifier: Nathin Wacher

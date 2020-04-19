@@ -25,14 +25,14 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 class ThunderbirdFrame extends JFrame implements ActionListener {
-    private ArrayList<ContactTile> tileList, reversedList;
+    private ArrayList<ContactTile> tileList;
     private ThunderbirdModel tbM;
     private JPanel contactGridPanel;
 
     private boolean reverse = true;
 
     public ThunderbirdFrame() {
-        setTitle("Thunderbird");
+        setTitle("Thunderbird Classroom Seating Chart");
         setBounds(300, 25, 1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -60,7 +60,7 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
         // Hint: Review LoadContact() and LoadContactsThreaded() in detail.
         // NW - Fully implemented and reviewed.
 
-        System.out.println("Printing Model:");
+        System.out.println("#### Printing Model:");
         System.out.println(tbM);
         tbM.validateContacts();
 
@@ -68,12 +68,12 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
 
         int h = 0;
         for (int i = 0; i < 99; i++) {
-            ThunderbirdContact contactInSeat = tbM.findContactInSeat(i);
+            ThunderbirdContact contactInSeat = tbM.findContactInSeat(i + 1);
             if (contactInSeat != null) {
                 System.out.println(contactInSeat);
             }
 
-            ContactTile tile = new ContactTile(contactInSeat);
+            ContactTile tile = new ContactTile(contactInSeat, i + 1);
 
             // Todo: Place all the aisle seats in a array or an ArrayList instead of hard
             // coding them.
@@ -91,24 +91,18 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
             contactGridPanel.add(tile);
         }
 
-        // Create another contact list but in reverse order
-        reversedList = new ArrayList<ContactTile>();
-        for (int b = 98; b > -1; b--) {
-            reversedList.add(tileList.get(b));
-        }
-
         setVisible(true);
     }
 
     // Redraws the tiles in a new order
-    private void drawTiles() {
+    private void redrawTiles() {
         Container contentPane = getContentPane();
         contentPane.remove(contactGridPanel);
         contactGridPanel = new JPanel(new GridLayout(11, 9));
 
         if (reverse) {
-            for (ContactTile tile : reversedList) {
-                contactGridPanel.add(tile);
+            for (int b = 98; b > -1; b--) {
+                contactGridPanel.add(tileList.get(b));
             }
             reverse = false;
 
@@ -131,7 +125,7 @@ class ThunderbirdFrame extends JFrame implements ActionListener {
         // Todo: Implement reverse view where it looks like you are looking at the room
         // from the back instead of the front of the room.
         // NW - Fully implemented.
-        drawTiles();
+        redrawTiles();
         repaint();
     }
 }
